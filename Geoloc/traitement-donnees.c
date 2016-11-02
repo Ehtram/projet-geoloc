@@ -74,7 +74,7 @@ void LambertToGPS(double XLAMB, double YLAMB){
 
     latIso = -(1/N) * log( R/C );
     // phiAvant = ( 2 * atan(exp(latIso)) ) - (M_PI/2);
-    phiAvant = 460000.25;
+    phiAvant = 46.25;
     printf("\n\n%2f\n",phiAvant);
 
     do
