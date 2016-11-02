@@ -43,7 +43,6 @@ void displayData(dataPoint * d){
 
 }
 
-
 /**
  * @brief Affichage de la distance entre deux points a partir de leurs coords GPS
  * @param d1 structure point

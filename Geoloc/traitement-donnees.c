@@ -66,17 +66,16 @@ void GPStoLambert(){
 void LambertToGPS(double XLAMB, double YLAMB){
     double R, gamma, longitude, latIso, phiAvant, latitude, phiI;
 
-    R = sqrt( pow((XLAMB - XS), 2) + pow((YLAMB - YS), 2)  );
+    R = sqrt( pow((XLAMB - XS), 2.0) + pow((YLAMB - YS), 2.0)  );
     gamma = atan( (XLAMB - XS) / (YS - YLAMB) );
+    longitude =  LAMBDAC + (gamma / N) ;
 
-    longitude =  LAMBDA0 + (gamma / N) ;
-    latIso = 1/N * log10(fabs(R/C));
+    printf("Gamma : %2f\nR : %2f\nN : %2f\nlongitude : %2f\n",gamma, R, N, longitude );
 
-    printf("%2f \n", longitude);
-
-    phiAvant = 2 * atan(exp(latIso)) - (M_PI/2);
-
-    printf("%2f\n",phiAvant);
+    latIso = -(1/N) * log( R/C );
+    // phiAvant = ( 2 * atan(exp(latIso)) ) - (M_PI/2);
+    phiAvant = 460000.25;
+    printf("\n\n%2f\n",phiAvant);
 
     do
     {
