@@ -80,6 +80,9 @@ void LambertToGPS(double XLAMB, double YLAMB){
     do
     {
       phiI = 2* atan( ( pow((1 + E * sin(phiAvant))/(1 - E * sin(phiAvant)) , E/2 )) * exp(latIso) ) - (M_PI/2) ;
+      // Plutot PhiI = phiAvant - toute la formule
+      // Ca ferait 47.75 - 0.8 = 46.??
+      // A tester avec les valeur phi1 phi2 en constante
       printf(" phiI %2f\n",phiI);
       if (fabs(phiI-phiAvant)<EPSILON)
       {

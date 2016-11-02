@@ -74,8 +74,8 @@ gboolean setCircle(GtkWidget *widget, double xc, double yc){
     cr = gdk_cairo_create (gtk_widget_get_window (widget));
 
     double radius = 100.0;
-    double angle1 = 0  * (M_PI/180.0);  // angles are specified 
-    double angle2 = 360.0 * (M_PI/180.0);  // in radians 
+    double angle1 = 0  * (M_PI/180.0);  // angles are specified
+    double angle2 = 360.0 * (M_PI/180.0);  // in radians
 
     cairo_set_line_width (cr, 10.0);
     cairo_arc (cr, xc, yc, radius, angle1, angle2);
@@ -108,7 +108,7 @@ gboolean clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 
     cr = gdk_cairo_create (gtk_widget_get_window (widget));
 
-    
+
 
     /*double dashes[] = {50.0,  // ink
                    10.0,  // skip
@@ -132,8 +132,8 @@ gboolean clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
     /*double xc = 128.0;
     double yc = 128.0;
     double radius = 100.0;
-    double angle1 = 0  * (M_PI/180.0);  // angles are specified 
-    double angle2 = 360.0 * (M_PI/180.0);  // in radians 
+    double angle1 = 0  * (M_PI/180.0);  // angles are specified
+    double angle2 = 360.0 * (M_PI/180.0);  // in radians
 
     cairo_set_source_rgba (cr, 1, 0.2, 0.2, 0.8);
 
@@ -142,7 +142,7 @@ gboolean clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 
     cairo_stroke (cr);
     */
-    
+
 
     //Parcours
     cairo_set_line_width (cr, 4.0);
@@ -189,4 +189,3 @@ gboolean clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
 
     return TRUE;
 }
-
