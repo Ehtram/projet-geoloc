@@ -63,48 +63,31 @@ void GPStoLambert() {
  * @param YLAMB
  */
 void LambertToGPS(double XLAMB, double YLAMB){
-  double latIso, phiAvant, latitude, phiI;
-  double R, gamma, longitude;
-  long double N = 0.7256077650;
+  float phiAvant, latitude, phiI, longitude, gamma, latIso;
+  double R ;
 
-    R = sqrt( pow((XLAMB - XS), 2.0) + pow((YLAMB - YS), 2.0)  );
-    gamma = atan( (XLAMB - XS) / (YS - YLAMB) );
-    longitude =  LAMBDA0 + (gamma / N) ;
+  R = sqrt( pow((XLAMB - XS), 2.0) + pow((YLAMB - YS), 2.0)  );
 
-    printf("Gamma : %2f\nR : %2f\nN : %Lff\nlongitude : %2f\n",gamma, R, N, longitude );
+  gamma =to_degrees(atan((XLAMB - XS) / (YS - YLAMB) ));
+  longitude =  LAMBDA0 + (gamma / N) ;
 
+  printf("Gamma : %f\nR : %2f\nN : %.8f\nlongitude : %2f\n",gamma, R, N, longitude );
 
+  latIso = -(1/N) * log( R/C );
+  printf("%.10f\n", latIso );
 
+  phiAvant = ( 2.f * atanf(exp(latIso)) ) - (M_PI/2.f);
+  phiAvant = 47;
+  // printf("\n\n%.8f\n",phiAvant);
 
-
-    latIso = -(1/N) * log( R/C );
-    phiAvant = ( 2 * atan(exp(latIso)) ) - (M_PI/2);
-    // phiAvant = 46.25;
-    printf("\n\n%2f\n",phiAvant);
-
-    do
-    {
-      phiI = 2* atan( ( pow((1 + E * sin(phiAvant))/(1 - E * sin(phiAvant)) , E/2 )) * exp(latIso) ) - (M_PI/2) ;
-
-      // printf(" phiI %2f\n",phiI);
-      if (fabs(phiI-phiAvant)<EPSILON)
-      {
-          latitude = phiI;
-          // printf(" latitude :%2f \n", latitude);
-          printf("latitude en degrés %2f\n",to_degrees(latitude) );
-          return;
-      }
-      else
-      {
-          phiAvant = phiI ;
-      }
-    } while(fabs(phiI - phiAvant) < EPSILON);
-
-
-    // while (fabs(phiI - phiAvant) < EPSILON) {
-    //
-    // }
-
+  phiI = 47.75;
+  while(fabsf(phiI - phiAvant) >= EPSILON){
+    phiAvant = phiI ;
+    phiI = 2.f* atanf( ( powf((1.f + E * sinf(phiAvant))/(1.f - E * sinf(phiAvant)) , E/2.f )) * expf(latIso) ) - (M_PI/2.f) ;
+  }
+  latitude = phiI;
+  // printf(" latitude :%2f \n", latitude);
+  printf("latitude en degrés %.8f\n",to_degrees(latitude) );
 
 }
 

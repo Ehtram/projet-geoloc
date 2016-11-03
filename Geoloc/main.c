@@ -17,7 +17,8 @@
 
 void traitementDonnees(){
   //  LambertToGPS(1029705.083,272723.849);
-  LambertToGPS(655645.0,6664862.0);
+  LambertToGPS(655645,6664862);
+  fprintf(stdout, "Valeur Attenu : 47,082631 , 2,416306 \n");
 }
 
 void graphic(){
