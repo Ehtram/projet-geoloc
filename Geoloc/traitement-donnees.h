@@ -32,18 +32,19 @@ void LambertToGPS(double XLAMB, double YLAMB);
 // #define EPSILON 0.00000000001
 
 // Les constantes qui marche pas
-#define N 0.7256077650
+// #define N 0.7256077650
 #define C 11754255.426
 #define XS 700000.0
 #define YS 12655612.050
 #define LAMBDA0 3.00000000
-#define LAMBDAC 47.75
-#define E 0.0824832568
-#define L 1.00552653648
+// #define LAMBDAC 47.75
+#define E 0.082483256
+// #define L 1.00552653648
 #define EPSILON 0.00000000001
 // #define phi0 47.00
 // #define phi1 47.75
 // #define phi2 46.25
+#define A 6378137
 
 
 /* Constantes de merde

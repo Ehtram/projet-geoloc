@@ -10,17 +10,16 @@
 /**
  * Fonction brouillon
  */
-void GPStoLambert(){
+void GPStoLambert() {
     //a modifier
     double latitude   = 49.036705880377674;
     double longitude = 2.046720988527103;
 
-
     //variables:
-    float a        = 6378137; //demi grand axe de l'ellipsoide (m)
-    float e        = 0.08181919106; //première excentricité de l'ellipsoide
-    float lc       = to_radians(3.f);
-    float l0    = to_radians(3.f);
+    float a       = 6378137; //demi grand axe de l'ellipsoide (m)
+    float e       = 0.08181919106; //première excentricité de l'ellipsoide
+    float lc      = to_radians(3.f);
+    float l0      = to_radians(3.f);
     float phi0    = to_radians(46.5f); //latitude d'origine en radian
     float phi1    = to_radians(44.f); //1er parallele automécoïque
     float phi2    = (49.f); //2eme parallele automécoïque
@@ -29,7 +28,7 @@ void GPStoLambert(){
     float y0    = 6600000; //coordonnées à l'origine
 
     float phi    = to_radians(latitude);
-    float l        = to_radians(longitude);
+    float l      = to_radians(longitude);
 
     //calcul des grandes normales
     float gN1    = a/sqrt(    1 - e * e * sin(phi1) * sin( phi1 ) );
@@ -64,37 +63,49 @@ void GPStoLambert(){
  * @param YLAMB
  */
 void LambertToGPS(double XLAMB, double YLAMB){
-    double R, gamma, longitude, latIso, phiAvant, latitude, phiI;
+  double latIso, phiAvant, latitude, phiI;
+  double R, gamma, longitude;
+  long double N = 0.7256077650;
 
     R = sqrt( pow((XLAMB - XS), 2.0) + pow((YLAMB - YS), 2.0)  );
     gamma = atan( (XLAMB - XS) / (YS - YLAMB) );
-    longitude =  LAMBDAC + (gamma / N) ;
+    longitude =  LAMBDA0 + (gamma / N) ;
 
-    printf("Gamma : %2f\nR : %2f\nN : %2f\nlongitude : %2f\n",gamma, R, N, longitude );
+    printf("Gamma : %2f\nR : %2f\nN : %Lff\nlongitude : %2f\n",gamma, R, N, longitude );
+
+
+
+
 
     latIso = -(1/N) * log( R/C );
-    // phiAvant = ( 2 * atan(exp(latIso)) ) - (M_PI/2);
-    phiAvant = 46.25;
+    phiAvant = ( 2 * atan(exp(latIso)) ) - (M_PI/2);
+    // phiAvant = 46.25;
     printf("\n\n%2f\n",phiAvant);
 
     do
     {
       phiI = 2* atan( ( pow((1 + E * sin(phiAvant))/(1 - E * sin(phiAvant)) , E/2 )) * exp(latIso) ) - (M_PI/2) ;
-      // Plutot PhiI = phiAvant - toute la formule
-      // Ca ferait 47.75 - 0.8 = 46.??
-      // A tester avec les valeur phi1 phi2 en constante
-      printf(" phiI %2f\n",phiI);
+
+      // printf(" phiI %2f\n",phiI);
       if (fabs(phiI-phiAvant)<EPSILON)
       {
           latitude = phiI;
-          printf(" latitude :%2f \n", latitude);
+          // printf(" latitude :%2f \n", latitude);
+          printf("latitude en degrés %2f\n",to_degrees(latitude) );
           return;
       }
       else
       {
-          phiAvant=phiI;
+          phiAvant = phiI ;
       }
     } while(fabs(phiI - phiAvant) < EPSILON);
+
+
+    // while (fabs(phiI - phiAvant) < EPSILON) {
+    //
+    // }
+
+
 }
 
 /**
