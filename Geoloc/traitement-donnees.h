@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <gmp.h>
+#include <stdlib.h>
 
 double to_degrees(double radians);
 double to_radians(double degrees);
@@ -40,5 +42,8 @@ void LambertToGPS(double XLAMB, double YLAMB);
 // #define phi1 47.75
 // #define phi2 46.25
 #define A 6378137
+
+void readIGNFile (FILE *src, FILE *dest);
+void writeFile (FILE * dest);
 
 #endif /* traitement_donnees_h */

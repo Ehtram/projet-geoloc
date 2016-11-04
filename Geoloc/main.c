@@ -19,6 +19,11 @@ void traitementDonnees(){
   //  LambertToGPS(1029705.083,272723.849);
   LambertToGPS(655645,6664862);
   fprintf(stdout, "Valeur Attenu : 47,082631 , 2,416306 \n");
+
+  FILE *src = fopen("./data/ADRESSE.csv", "r");
+  FILE *dest = fopen("./data/adresseGPS.txt", "w");
+
+  readIGNFile(src, dest);
 }
 
 void graphic(){

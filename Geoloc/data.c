@@ -1,12 +1,12 @@
+#include "data.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
 #include <math.h>
-#include "data.h"
 #include "parcours_list.h"
 #include "traitement-donnees.h"
-
 
 /**
  * @brief Création d'un nouveau point
@@ -39,8 +39,6 @@ void displayData(dataPoint * d){
    printf("Longitude : %lf\n", d->longitude);
    printf("Latitude : %lf\n", d->latitude);
    printf("----\n");
-
-
 }
 
 /**
@@ -65,11 +63,8 @@ double distanceBtwnPoints(dataPoint * d1, dataPoint * d2){
    printf("Lat 1 : %lf long 1 : %lf\n", lat_a, lon_a);
    printf("Lat 2 : %lf long 2 : %lf\n", lat_b, lon_b);
 
-
-
    d = R * (M_PI/2 - asin( sin(lat_b) * sin(lat_a) + cos(lon_b - lon_a) * cos(lat_b) * cos(lat_a) ) );
    return d;
-
 }
 
 /**
@@ -79,3 +74,5 @@ double distanceBtwnPoints(dataPoint * d1, dataPoint * d2){
 void destroyPoint(dataPoint * d){
    free(d);
 }
+
+

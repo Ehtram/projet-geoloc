@@ -97,7 +97,7 @@ void LambertToGPS(double XLAMB, double YLAMB){
  * @return
  */
 double to_degrees(double radians){
-    return radians * (180.0 / M_PI);
+  return radians * (180.0 / M_PI);
 }
 
 /**
@@ -106,5 +106,60 @@ double to_degrees(double radians){
  * @return
  */
 double to_radians(double degrees){
-    return (degrees * M_PI) / 180.0;
+  return (degrees * M_PI) / 180.0;
 }
+
+
+void readIGNFile (FILE *src, FILE * dest) {
+  char c = NULL;
+  int i = 0;
+  int beginFlag =0 , endFlag = 0;
+  if (src == NULL || dest == NULL)
+  {
+    fprintf(stderr, "Erreur de lecture du fichier !\n");
+    return ;
+  }
+  while( (c = fgetc(src)) != EOF ){
+    if (c == ',')
+    {
+      i++;
+    }
+    else if ( c == '\n')
+    {
+      fputc('\n',dest);
+      i=0;
+    }
+    else {
+      switch(i)
+      {
+        //Numéro dans la rue
+        case 3:
+          fputc(c,dest);
+          // i++;
+          break;
+        // Nom de la rue
+        case 6:
+          fputc(c, dest);
+          // i++;
+          break;
+        // Latitude
+        case 13:
+          fputc(c, dest);
+          // i++;
+          break;
+        // Longitude
+        case 14:
+          fputc(c, dest);
+          break;
+      }
+    }
+  }
+
+
+
+}
+
+void writeFile (FILE * dest) {
+
+}
+
