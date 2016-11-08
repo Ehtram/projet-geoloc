@@ -111,11 +111,10 @@ void LambertToGPS(double XLAMB, double YLAMB) {
   //phiAvant = ( 2.f * atanf(exp(latIso)) ) - (M_PI/2.f);
   //phiAvant = 47;
   // printf("\n\n%.8f\n",phiAvant);
-  phiAvant = phi0;
-  phiI = phi1;
+  phiI = phi0;
   while(fabsf(phiI - phiAvant) >= EPSILON){
     phiAvant = phiI ;
-    phiI = 2.f* atanf( ( powf((1.f + E * sinf(phiAvant))/(1.f - E * sinf(phiAvant)) , E/2.f )) * expf(latIso) ) - (M_PI/2.f) ;
+    phiI = 2.f* atanf( ( powf((1.f + e * sinf(phiAvant))/(1.f - e * sinf(phiAvant)) , e/2.f )) * expf(latIso) ) - (M_PI/2.f) ;
   }
   latitude = phiI;
   // printf(" latitude :%2f \n", latitude);
