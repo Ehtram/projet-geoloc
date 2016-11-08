@@ -62,32 +62,64 @@ void GPStoLambert() {
  * @param XLAMB
  * @param YLAMB
  */
-void LambertToGPS(double XLAMB, double YLAMB){
-  float phiAvant, latitude, phiI, longitude, gamma, latIso;
-  double R ;
+void LambertToGPS(double XLAMB, double YLAMB) {
+  float phiAvant, latitude, phiI, longitude, gamma, latIso, N=0.7256077650;
+  double R;
+
+   //variables:
+  float a       = 6378137; //demi grand axe de l'ellipsoide (m)
+  float e       = 0.08181919106; //première excentricité de l'ellipsoide
+  float lc      = to_radians(3.f);
+  float l0      = to_radians(3.f);
+  float phi0    = to_radians(46.5f); //latitude d'origine en radian
+  float phi1    = to_radians(44.f); //1er parallele automécoïque
+  float phi2    = (49.f); //2eme parallele automécoïque
+
+  float x0    = 700000; //coordonnées à l'origine
+  float y0    = 6600000; //coordonnées à l'origine
+
+  float phi    = to_radians(latitude);
+  float l      = to_radians(longitude);
+
+  //calcul des grandes normales
+  float gN1    = a/sqrt(    1 - e * e * sin(phi1) * sin( phi1 ) );
+  float gN2    = a/sqrt(    1 - e * e * sin(phi2) * sin( phi2 ) );
+
+  const double pi = 3.14159265358979323846;
+  //calculs des latitudes isométriques
+  float gl1    = log( tan( pi / 4 + phi1 / 2) * pow( (1 - e * sin( phi1 ) ) / ( 1 + e * sin( phi1 ) ), e / 2) );
+  float gl2    = log( tan( pi / 4 + phi2 / 2) * pow( (1 - e * sin( phi2 ) ) / ( 1 + e * sin( phi2 ) ), e / 2) );
+  float gl0    = log( tan( pi / 4 + phi0 / 2) * pow( (1 - e * sin( phi0 ) ) / ( 1 + e * sin( phi0 ) ), e / 2) );
+  float gl    = log( tan( pi / 4 + phi  / 2) * pow( (1 - e * sin( phi  ) ) / ( 1 + e * sin( phi  ) ), e / 2) );
+
+  //calcul de l'exposant de la projection
+  float n        = ( log( ( gN2 * cos( phi2 ) ) / ( gN1 * cos( phi1 )))) / ( gl1 - gl2);//ok
+
+  //calcul de la constante de projection
+  float c        = (( gN1 * cos( phi1 )) / n) * exp( n * gl1);//ok
 
   R = sqrt( pow((XLAMB - XS), 2.0) + pow((YLAMB - YS), 2.0)  );
 
   gamma =to_degrees(atan((XLAMB - XS) / (YS - YLAMB) ));
-  longitude =  LAMBDA0 + (gamma / N) ;
+  longitude =  l0 + (gamma / n) ;
 
-  printf("Gamma : %f\nR : %2f\nN : %.8f\nlongitude : %2f\n",gamma, R, N, longitude );
+  printf("Gamma : %f\nR : %2f\nn : %.8f\nlongitude : %2f\n",gamma, R, n, longitude );
 
-  latIso = -(1/N) * log( R/C );
-  printf("%.10f\n", latIso );
+  latIso = -(1/n) * log( R/C );
+  printf("%.10f %f\n", latIso, c);
 
-  phiAvant = ( 2.f * atanf(exp(latIso)) ) - (M_PI/2.f);
-  phiAvant = 47;
+  //phiAvant = ( 2.f * atanf(exp(latIso)) ) - (M_PI/2.f);
+  //phiAvant = 47;
   // printf("\n\n%.8f\n",phiAvant);
-
-  phiI = 47.75;
+  phiAvant = phi0;
+  phiI = phi1;
   while(fabsf(phiI - phiAvant) >= EPSILON){
     phiAvant = phiI ;
     phiI = 2.f* atanf( ( powf((1.f + E * sinf(phiAvant))/(1.f - E * sinf(phiAvant)) , E/2.f )) * expf(latIso) ) - (M_PI/2.f) ;
   }
   latitude = phiI;
   // printf(" latitude :%2f \n", latitude);
-  printf("latitude en degrés %.8f\n",to_degrees(latitude) );
+  printf("latitude en degrés %.10f\n",to_degrees(latitude) );
 
 }
 
