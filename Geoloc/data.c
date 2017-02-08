@@ -103,3 +103,24 @@ double distanceBtwnPoints(dataPoint * d1, dataPoint * d2){
 void destroyPoint(dataPoint * d){
    free(d);
 }
+
+// a tester
+parcours anonymous(parcours * listePoint){
+
+   parcours* temp = listePoint;
+   dataPoint* p1;
+   dataPoint* p2;
+
+   listePointAnoynyme = initParcours();
+
+   while(temp->next != NULL){
+      p1 = temp->pt;
+      p2 = temp->next->pt
+      while(distanceBtwnPoints(p1,p2) =< 150){
+        addPoint(p2,listePointAnoynyme);
+        temp = temp->next;
+        p2 = temp->pt;
+      }
+   }
+   return listePointAnoynyme;
+}

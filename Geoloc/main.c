@@ -1,8 +1,8 @@
 /**
  * Pour compiler :  gcc *.c -o prog `pkg-config --cflags --libs gtk+-3.0` `pkg-config --cflags cairo`
  */
-#include <cairo.h>
-#include <gtk/gtk.h>
+/*#include <cairo.h>
+#include <gtk/gtk.h>*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>

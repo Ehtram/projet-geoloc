@@ -1,4 +1,4 @@
-#include <time.h>
+k#include <time.h>
 
 #ifndef   _DATA_H
 #define   _DATA_H
@@ -23,6 +23,8 @@ extern double distanceBtwnPoints(dataPoint * d1, dataPoint * d2);
 extern void timeTxt(time_t timestamp);
 
 extern void destroyPoint(dataPoint * d);
+
+extern parcours anonymous(parcours * listePoint);
 
 
 #endif
