@@ -11,10 +11,10 @@
 
 #include <stdio.h>
 #include <math.h>
+#include "data.h"
 
 
-
-
+void pointToPoint(dataPoint *point);
 float to_radians(float degrees);
 void GPStoLambert(float lattitude, float longitude );
 

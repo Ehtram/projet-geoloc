@@ -4,6 +4,7 @@
 #include <string.h>
 #include "data.h"
 #include "parcours_list.h"
+#include "traitement-donnees.h"
 
 /**
  * @brief Lecture du fichier Geolog
@@ -20,8 +21,10 @@ parcours* readData(FILE * p){
    lp = initParcours();
 
    while(fscanf(p, "date:%d,lat:%lf,long:%lf;\n", &date, &lat, &lon) == 3){
-      read_mat = newPoint(date, lon, lat);
-      addPoint(read_mat, lp);   
+      read_mat = newPoint(date, lat, lon);
+      pointToPoint(read_mat);
+      addPoint(read_mat, lp);
+
    }
    return lp;
 }
